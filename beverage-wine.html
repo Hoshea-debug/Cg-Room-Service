@@ -72,15 +72,12 @@
             gap: 10px;
             overflow-x: auto;
             padding-bottom: 5px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
         }
 
         .nav-links::-webkit-scrollbar {
-            height: 5px;
-        }
-
-        .nav-links::-webkit-scrollbar-thumb {
-            background: var(--accent-color);
-            border-radius: 10px;
+            display: none; /* Chrome/Safari */
         }
 
         .nav-link {
@@ -92,6 +89,7 @@
             font-weight: bold;
             white-space: nowrap;
             transition: var(--transition);
+            flex-shrink: 0;
         }
 
         .nav-link:hover {
@@ -120,6 +118,7 @@
             margin-bottom: 1.5rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            overflow-x: auto;
         }
 
         .card:hover {
@@ -139,12 +138,14 @@
             width: 100%;
             border-collapse: collapse;
             margin: 1rem 0;
+            min-width: 600px; /* Prevents table from collapsing too much */
         }
 
         th, td {
             padding: 0.75rem;
             text-align: left;
             border-bottom: 1px solid #e2e8f0;
+            word-break: break-word; /* Prevents long words from breaking layout */
         }
 
         th {
@@ -210,29 +211,28 @@
             background-size: cover;
             border-radius: 2px;
         }
-		
-		.nav-button {
-			display: inline-block;
-			margin: 0 10px;
-			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-			color: white;
-			padding: 12px 30px;
-			font-size: 1em;
-			font-family: Georgia, serif;
-			border-radius: 50px;
-			text-decoration: none;
-			box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
-			border: none;
-			cursor: pointer;
-			transition: all 0.3s ease;
-		}
+        
+        .nav-button {
+            display: inline-block;
+            margin: 0 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            font-size: 1em;
+            font-family: Georgia, serif;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-		.nav-button:hover {
-			transform: translateY(-2px);
-			box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-			background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-		}
-
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
 
         ul {
             padding-left: 1.5rem;
@@ -256,8 +256,54 @@
             }
             
             .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                padding-bottom: 15px;
+            }
+            
+            table {
+                font-size: 0.9em;
+            }
+            
+            th, td {
+                padding: 0.5rem;
+            }
+            
+            .card {
+                padding: 1rem;
+            }
+            
+            .nav-button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+                margin: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+            }
+            
+            table {
+                font-size: 0.8em;
+            }
+            
+            th, td {
+                padding: 0.4rem;
+            }
+            
+            .menu-item {
+                padding: 1rem;
+            }
+            
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 0.8em;
             }
         }
 
