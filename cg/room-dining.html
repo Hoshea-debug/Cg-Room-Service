@@ -1,0 +1,2271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium In-Room Dining Menu</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --accent-color: #667eea;
+            --text-dark: #2d3748;
+            --text-light: #f8fafc;
+            --shadow: 0 8px 25px rgba(0,0,0,0.1);
+            --shadow-hover: 0 12px 30px rgba(0,0,0,0.15);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, serif;
+            background: var(--bg-gradient);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--primary-gradient);
+            color: var(--text-light);
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: white;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            height: 80%;
+            width: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .subsection-title {
+            font-size: 1.4em;
+            margin: 25px 0 15px;
+            color: var(--text-dark);
+        }
+
+        .menu-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .item-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .item-name {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: var(--text-dark);
+        }
+
+        .item-price {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .item-time {
+            font-style: italic;
+            color: #718096;
+            font-size: 0.9em;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .item-ingredients {
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+
+        .item-options {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #4a5568;
+        }
+
+        .item-options li {
+            margin-left: 20px;
+        }
+
+        /* Legend Styles */
+        .legend {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+        }
+
+        .icon {
+            font-size: 1.2em;
+        }
+
+        .vegetarian {
+            color: #38a169;
+        }
+
+        .nuts {
+            color: #dd6b20;
+        }
+
+        .spicy {
+            color: #e53e3e;
+        }
+		
+		.nav-button {
+			display: inline-block;
+			margin: 0 10px;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			padding: 12px 30px;
+			font-size: 1em;
+			font-family: Georgia, serif;
+			border-radius: 50px;
+			text-decoration: none;
+			box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
+			border: none;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.nav-button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+			background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+		}
+
+        /* Notice */
+        .notice {
+            background: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        /* Grid Layout */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.5em;
+            }
+            
+            .subsection-title {
+                font-size: 1.2em;
+            }
+            
+            header h1 {
+                font-size: 2em;
+            }
+            
+            .item-name {
+                font-size: 1.1em;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>In-Room Dining Menu</h1>
+            <p>Premium dining experience in the comfort of your room</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container nav-container">
+            <a href="#breakfast" class="nav-btn active">Breakfast</a>
+            <a href="#all-day" class="nav-btn">All Day Dining</a>
+            <a href="#sweets" class="nav-btn">Sweet Dishes</a>
+            <a href="#kids" class="nav-btn">Kids Menu</a>
+            <a href="#late-night" class="nav-btn">Late Night Supper</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="notice">
+            <p><strong>Please note:</strong> All prices are subject to 10% service charge & government taxes</p>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <span class="icon vegetarian">🌱</span>
+                <span>Vegetarian</span>
+            </div>
+            <div class="legend-item">
+                <span class="icon nuts">🥜</span>
+                <span>Contains nuts</span>
+            </div>
+            <div class="legend-item">
+                <span class="icon spicy">🌶️</span>
+                <span>Spicy</span>
+            </div>
+        </div>
+
+        <!-- Breakfast Menu -->
+        <section id="breakfast" class="card">
+            <h2 class="section-title">BREAKFAST MENU</h2>
+            <p><em>Served 6:30am - 10:30am (some items available 24 hours)</em></p>
+
+            <h3 class="subsection-title">Traditional Breakfast Sets</h3>
+
+            <div class="menu-item">
+                <div class="item-title">
+                    <span class="item-name">INDIAN BREAKFAST</span>
+                    <span class="item-price">LKR 2,700</span>
+                </div>
+                <div class="item-time">6:30am-10:30am</div>
+                <div class="item-ingredients">
+                    <p><strong>Beverages:</strong> Pineapple/papaya/orange/watermelon juice OR sweet/salted lassi</p>
+                    <p><strong>Main:</strong> Idly, plain dosai, masala dosai, uttapam, aloo paratha, OR upma</p>
+                    <p><strong>Accompaniments:</strong> Wadai, sambar, coconut chutney, tomato chutney</p>
+                    <p><strong>Hot Beverage:</strong> Filtered Indian coffee OR masala tea</p>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-title">
+                    <span class="item-name">SRI LANKAN BREAKFAST</span>
+                    <span class="item-price">LKR 2,600</span>
+                </div>
+                <div class="item-time">6:30am-10:30am</div>
+                <div class="item-ingredients">
+                    <p><strong>Beverages:</strong> Pineapple/orange/papaya/watermelon/king coconut juice OR tropical fresh fruit platter</p>
+                    <p><strong>Main:</strong> Red/white string hoppers, kiribath (milk rice), pol roti, OR hoppers</p>
+                    <p><strong>Curries:</strong> Chicken OR fish curry, dhal curry</p>
+                    <p><strong>Accompaniments:</strong> Seeni sambol, pol sambol, lunu miris</p>
+                    <p><strong>Hot Beverage:</strong> Freshly brewed tea OR coffee</p>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-title">
+                    <span class="item-name">CONTINENTAL BREAKFAST</span>
+                    <span class="item-price">LKR 2,700</span>
+                </div>
+                <div class="item-time">24 hours</div>
+                <div class="item-ingredients">
+                    <p><strong>Beverages:</strong> Papaya/pineapple/orange/apple/king coconut/watermelon juice</p>
+                    <p><strong>Fruit:</strong> Fresh fruit platter with plain/fruit yogurt (strawberry/banana/raspberry)</p>
+                    <p><strong>Pastries:</strong> 3 breakfast pastries (chocolate/butter croissant, Danish, muffin, doughnut)</p>
+                    <p><strong>Bread:</strong> White/brown/multigrain/French bread (toasted/untoasted)</p>
+                    <p><strong>Spreads:</strong> Strawberry/raspberry/mixed fruit jam, marmalade, butter, margarine</p>
+                    <p><strong>Hot Beverage:</strong> Freshly brewed tea OR coffee</p>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-title">
+                    <span class="item-name">AMERICAN BREAKFAST</span>
+                    <span class="item-price">LKR 3,200</span>
+                </div>
+                <div class="item-time">24 hours</div>
+                <div class="item-ingredients">
+                    <p><strong>Beverages:</strong> Papaya/pineapple/orange/apple/king coconut/watermelon juice</p>
+                    <p><strong>Fruit:</strong> Fresh fruit platter with plain/fruit yogurt (strawberry/banana/raspberry)</p>
+                    <p><strong>Pastries:</strong> 3 breakfast pastries (chocolate/butter croissant, Danish, muffin, doughnut)</p>
+                    <p><strong>Cereal:</strong> All-Bran®, Corn Flakes®, Rice Krispies®, Coco Pops®, muesli, OR Weetabix®</p>
+                    <p><strong>Eggs:</strong> 2 eggs any style (sunny side up/over easy/scrambled/poached/boiled/omelette)</p>
+                    <p><strong>Proteins:</strong> Beef/chicken/pork sausages, bacon, OR ham</p>
+                    <p><strong>Sides:</strong> Hash brown, grilled tomato, baked beans, sautéed mushrooms</p>
+                    <p><strong>Bread:</strong> White/brown/multigrain/French bread (toasted/untoasted)</p>
+                    <p><strong>Spreads:</strong> Strawberry/raspberry/mixed fruit jam, marmalade, butter, margarine</p>
+                    <p><strong>Hot Beverage:</strong> Freshly brewed tea OR coffee</p>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Individual Breakfast Items</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">TWO EGGS ANY STYLE</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>2 eggs (sunny side up/over easy/scrambled/poached), choice of French/white/brown bread (toasted/untoasted)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">BUTTERMILK PANCAKE OR WAFFLES</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Buttermilk pancakes OR waffles, dried fruits, nuts, caramelized banana, honey, nutella</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">EGGS BENEDICT WITH HOLLANDAISE SAUCE</span>
+                            <span class="item-price">LKR 1,400</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Grilled pork ham, poached eggs, hollandaise sauce, mustard flower, English muffin</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">CEREAL WITH FRESH MILK</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Corn Flakes®/Coco Pops®/Rice Krispies®/Weetabix®/muesli/All-Bran®, fresh milk</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">BREAKFAST PASTRIES</span>
+                            <span class="item-price">LKR 1,550</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Fruit Danish, chocolate/butter croissant, muffin, doughnut, choice of French/white/brown bread (toasted/untoasted), strawberry/raspberry/mixed fruit jam, marmalade, butter, margarine</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">OVERNIGHT OATS <span class="icon nuts">🥜</span></span>
+                            <span class="item-price">LKR 2,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Rolled oats, fresh milk, yogurt, seasonal fruits, mixed nuts, honey</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Healthy & Vegan Options</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">HEALTHY AND VEGAN JUICES</span>
+                            <span class="item-price">From LKR 900</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong>Ambarella (June Plum):</strong> LKR 900</p>
+                            <p><strong>Soursop:</strong> LKR 950</p>
+                            <p><strong>Mandarin:</strong> LKR 950</p>
+                            <p><strong>Bitter Gourd (Karela):</strong> LKR 900</p>
+                            <p><strong>Celery:</strong> LKR 900</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">NATURAL CURD 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Fresh natural curd, treacle</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">OMELETTE</span>
+                            <span class="item-price">LKR 1,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Eggs, mushrooms, cheese, ham, bacon, tomato, bell pepper, green chili, onions, hash brown, grilled tomato</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">HOT OATMEAL 🌱</span>
+                            <span class="item-price">LKR 1,450</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Rolled oats, fresh milk, honey, cinnamon</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">FRESHLY CUT FRUIT 🌱</span>
+                            <span class="item-price">LKR 1,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>5 types of seasonal fruits</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Comfort Options</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name nuts">FRENCH TOAST 🥜</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Thick bread slices, eggs, milk, dried fruits, nuts, caramelized banana, honey, nutella</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">BREAKFAST SANDWICH</span>
+                            <span class="item-price">LKR 1,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Grilled chicken sausage, pork bacon, cheddar cheese, fried egg, choice of white/brown/whole wheat bread (toasted/untoasted)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">STEAK AND EGGS</span>
+                            <span class="item-price">LKR 2,600</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Sirloin steak, 2 eggs any style, hash brown, grilled tomato, grilled bread</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- All Day Dining Menu -->
+        <section id="all-day" class="card">
+            <h2 class="section-title">ALL DAY DINING MENU</h2>
+            <p><em>Served 11am - 11pm</em></p>
+
+            <h3 class="subsection-title">Appetizers & Salads</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">FRESH GARDEN SALAD WITH CURRY LEAVES AND HONEY DRESSING 🌱</span>
+                            <span class="item-price">LKR 1,400</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Mixed seasonal lettuce, cucumber, apple, sun-dried tomato, green olives, curry leaves, honey dressing, mustard flower</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">NIÇOISE SALAD WITH TUNA</span>
+                            <span class="item-price">LKR 1,400</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Green beans, potato, olives, tomatoes, boiled egg, tuna, mixed greens, vinaigrette</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">LYONNAISE SALAD WITH FRENCH DRESSING</span>
+                            <span class="item-price">LKR 1,450</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Poached egg, smoked pork belly, lettuce, cucumber, bell pepper, tomato, green apple, French dressing</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">FATTOUSH SALAD WITH CHICKEN AND CREAMY HUMMUS</span>
+                            <span class="item-price">LKR 2,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Crispy Arabic bread, fried chickpea, grilled chicken, creamy hummus, mixed greens, tomatoes, cucumber, radish, sumac</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">GREEK SALAD 🌱</span>
+                            <span class="item-price">LKR 1,650</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Feta cheese, tomato, cucumber, red onion, lettuce, bell pepper, olives, lemon oregano and olive oil dressing</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">FENNEL AND DILL CURED SALMON GRAVLAX</span>
+                            <span class="item-price">LKR 4,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Fennel and dill cured salmon, pomelo, beetroot, pumpkin, pearl onions, mustard flower, sweet mustard dressing</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">GRILLED MARINATED PRAWNS WITH CRUSHED AVOCADO ON SOURDOUGH TOAST</span>
+                            <span class="item-price">LKR 1,900</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Marinated prawns, crushed avocado, sourdough toast, lettuce, chili garlic mayonnaise, jalapeño salsa</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">HOMEMADE CHICKEN LIVER PARFAIT</span>
+                            <span class="item-price">LKR 2,700</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Chicken liver parfait, honey, orange marmalade, mustard flower, toasted brioche</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Soups</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name spicy">TOM YUM SEAFOOD SOUP 🌶️</span>
+                            <span class="item-price">LKR 1,600</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Mixed seafood, lemongrass, galangal, lime leaves, chili, fish sauce, lime juice, mushrooms, tomatoes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">SOUP OF THE DAY</span>
+                            <span class="item-price">LKR 1,450</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Varies daily - please inquire</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">CREAM OF CHICKEN VELOUTÉ</span>
+                            <span class="item-price">LKR 1,700</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Pulled chicken, cream, chicken stock, herb croutons, chives, fried onions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Burgers & Sandwiches</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">CRUMB-FRIED VEGETABLE BURGER 🌱</span>
+                            <span class="item-price">LKR 1,500</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Crumb-fried vegetable patty, brioche bun, sautéed onion, tomato, cucumber, iceberg lettuce, onion, fries</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">CLASSIC BEEF OR CHICKEN BURGER</span>
+                            <span class="item-price">LKR 2,800</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Chargrilled beef OR chicken patty, brioche bun, cheddar cheese, tomato, cucumber, iceberg lettuce, onion, fries</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">POACHED EGGS WITH SALAMI AND GOAT CHEESE</span>
+                            <span class="item-price">LKR 3,000</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Poached eggs, salami, goat cheese, toasted English muffin, truffle, hollandaise sauce, chives, mustard flower</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">CLUB SANDWICH</span>
+                            <span class="item-price">LKR 3,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Shredded chicken spread, emmental cheese, crispy bacon, fried egg, tomato, lettuce, fries, toasted bread</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">CHARGRILLED STEAK SANDWICH</span>
+                            <span class="item-price">LKR 4,000</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Chargrilled steak, sourdough ciabatta, caramelized onions, tomatoes, gherkins, arugula</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">YOUR CHOICE OF SANDWICH</span>
+                            <span class="item-price">LKR 2,600</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Choice of ham/tuna/smoked salmon/egg/prawn/cheese/roast beef/chicken, white/brown/whole wheat bread (toasted/untoasted), lettuce, tomato, mayonnaise</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">International Main Dishes</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">SLOW ROASTED CRISPY SPRING CHICKEN</span>
+                            <span class="item-price">LKR 3,000</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Whole spring chicken, cheesy mashed potato OR fries, buttered vegetables, pepper sauce, mustard flower</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">GRILLED PORK CHOPS</span>
+                            <span class="item-price">LKR 2,800</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Pork chops, beetroot, pumpkin, radish, carrot, creamy mashed potato, green oil, crispy tuiles, mustard flower, pineapple chutney, lemon thyme gravy</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">GRILLED MODHA WITH LEMON BUTTER</span>
+                            <span class="item-price">LKR 3,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Grilled modha fish, lemon butter sauce, buttered vegetables, mashed potato, crispy tuiles, herb oil</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">FENNEL AND GARLIC GRATINATED JUMBO PRAWNS</span>
+                            <span class="item-price">LKR 3,800</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Jumbo prawns, fennel, garlic, creamy mashed potato, buttered vegetables, mustard flower, lemon butter sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">FISH 'N' CHIPS</span>
+                            <span class="item-price">LKR 3,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Beer-battered fish, fries, creamy tartare sauce, mushy peas, lemon wedge</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">GRILLED SCOTTISH SALMON À L'UNILATERAL</span>
+                            <span class="item-price">LKR 9,500</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Scottish salmon, beetroot, pumpkin, radish, carrot, creamy mashed potato, green oil, crispy tuiles, mustard flower, lemon butter sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">GRILLED CUT AUSTRALIAN BEEF TENDERLOIN</span>
+                            <span class="item-price">LKR 18,600</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Australian beef tenderloin, creamy mashed potato, buttered vegetables, crispy tuiles, mustard flower, red wine sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">SIRLOIN</span>
+                            <span class="item-price">LKR 13,500</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Sirloin steak, creamy mashed potato, buttered vegetables, crispy tuiles, mustard flower, red wine sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">HERB CRUSTED RACK OF NEW ZEALAND LAMB</span>
+                            <span class="item-price">LKR 19,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>New Zealand lamb rack, herb crust, buttered vegetables, creamy mashed potato, mustard flower, crispy tuiles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Italian</h3>
+
+            <h4 class="subsection-title">Pizzas</h4>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">MARGHERITA 🌱</span>
+                            <span class="item-price">LKR 2,400</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Tomato sauce, mozzarella cheese, fresh basil, olive oil</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name spicy">DIAVOLA 🌶️</span>
+                            <span class="item-price">LKR 2,500</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Tomato sauce, mozzarella cheese, chicken, olives, chili, fresh basil</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">MARINARA</span>
+                            <span class="item-price">LKR 2,800</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Tomato sauce, mozzarella cheese, mixed seafood, lemon zest, garlic, parsley</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="subsection-title">Pasta</h4>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">MAC 'N' CHEESE 🌱</span>
+                            <span class="item-price">LKR 2,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Macaroni pasta, tender leeks, mushrooms, onions, cheddar cheese sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">PENNE / SPAGHETTI / LINGUINE</span>
+                            <span class="item-price">LKR 2,400</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong>Carbonara:</strong> Eggs, pancetta, parmesan cheese, black pepper</p>
+                            <p><strong>Marinara:</strong> Tomato sauce, garlic, basil, olive oil</p>
+                            <p><strong>Bolognese:</strong> Ground beef, tomato sauce, onions, carrots, celery</p>
+                            <p><strong class="spicy">Arrabiata 🌶️:</strong> Tomato sauce, garlic, chili, parsley</p>
+                            <p><strong class="vegetarian">Al Funghi 🌱:</strong> Mushrooms, cream, garlic, parsley</p>
+                            <p><strong class="vegetarian">Napolitana 🌱:</strong> Tomato sauce, basil, garlic</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">CREAMY CHICKEN PENNE/SPAGHETTI/LINGUINE</span>
+                            <span class="item-price">LKR 2,800</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Grilled chicken breast, cream sauce, mushrooms, sun-dried tomatoes, spinach, parmesan cheese, garlic, herbs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Asian & Sri Lankan Dishes</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">FRESHLY MADE INDIAN BREAD 🌱</span>
+                            <span class="item-price">LKR 900</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong>Options:</strong> Garlic naan, plain naan, roti, OR paratha</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">VEGETABLE BIRIYANI 🌱</span>
+                            <span class="item-price">LKR 1,700</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Basmati rice, mixed vegetables, biriyani spices, raita, pickles, papadam</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">NASI GORENG</span>
+                            <span class="item-price">LKR 2,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Indonesian fried rice, chicken satay skewers, prawn crackers, fried egg, vegetables</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">CHICKEN BIRIYANI</span>
+                            <span class="item-price">LKR 2,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Basmati rice, chicken, biriyani spices, raita, pickles, papadam, boiled fried egg</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name spicy">WOK FRIED HOT BUTTER CUTTLEFISH 🌶️</span>
+                            <span class="item-price">LKR 2,700</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Fresh cuttlefish, butter, garlic, ginger, chili, onions, curry leaves</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">BONELESS CHICKEN TIKKA MASALA</span>
+                            <span class="item-price">LKR 2,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Boneless chicken, tikka masala sauce, steamed rice OR butter naan, pickle</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name spicy">CHICKEN CURRY 🌶️</span>
+                            <span class="item-price">LKR 2,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Chicken, curry spices, coconut milk, pilau rice, chutney, Asian salad, papadam</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name spicy">FISH CURRY 🌶️</span>
+                            <span class="item-price">LKR 2,000</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Fresh fish, curry spices, coconut milk, pilau rice, chutney, Asian salad, papadam</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">MUTTON BIRIYANI</span>
+                            <span class="item-price">LKR 4,000</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Basmati rice, mutton, biriyani spices, raita, pickles, papadam, boiled fried egg</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">RICE AND CURRY</span>
+                            <span class="item-price">From LKR 2,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong class="spicy">Fish/Chicken/Beef/Pork 🌶️:</strong> LKR 2,100</p>
+                            <p><strong class="spicy">Mutton 🌶️:</strong> LKR 3,000</p>
+                            <p>Choice of curry, steamed rice, vegetable curries, papadam, onion salad</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name spicy">BONELESS MUTTON CURRY 🌶️</span>
+                            <span class="item-price">LKR 3,500</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Boneless mutton, curry spices, pilau rice, chutney, Asian salad, papadam</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name spicy">THAI GREEN PRAWN CURRY 🌶️</span>
+                            <span class="item-price">LKR 3,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Prawns, green curry paste, coconut milk, Thai basil, steamed rice</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Street Food Options</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name spicy">SRI LANKAN STYLE DEVILLED DISHES 🌶️</span>
+                            <span class="item-price">From LKR 1,500</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong>Chicken:</strong> LKR 1,500</p>
+                            <p><strong>Fish/Beef:</strong> LKR 2,000</p>
+                            <p><strong>Pork:</strong> LKR 1,950</p>
+                            <p><strong>Prawns:</strong> LKR 2,400</p>
+                            <p>Fried garlic, dried chilies, onions, bell peppers, soy sauce, chili sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">FAR EASTERN RICE AND NOODLE DISHES</span>
+                            <span class="item-price">From LKR 1,800</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong>Mixed Fried Rice:</strong> LKR 1,800</p>
+                            <p><strong>Seafood Fried Rice:</strong> LKR 2,100</p>
+                            <p><strong>Mixed Fried Noodles:</strong> LKR 1,800</p>
+                            <p><strong>Seafood Fried Noodles:</strong> LKR 2,100</p>
+                            <p>Rice/noodles, mixed vegetables, protein, soy sauce, sesame oil</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name spicy">DELICIOUS SPICY CREAMY KOTTU 🌶️</span>
+                            <span class="item-price">From LKR 1,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong class="vegetarian">Vegetable 🌱:</strong> LKR 1,200</p>
+                            <p><strong class="vegetarian">Vegetable and Cheese (Egg) 🌱:</strong> LKR 1,550</p>
+                            <p><strong>Chicken:</strong> LKR 1,950</p>
+                            <p><strong>Fish/Beef:</strong> LKR 2,200</p>
+                            <p><strong>Mutton:</strong> LKR 3,200</p>
+                            <p>Chopped roti, vegetables, protein, spices, curry sauce</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Vegan Options</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">VEGETARIAN RICE AND CURRY 🌱</span>
+                            <span class="item-price">LKR 1,500</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Steamed rice, mixed vegetable curries, papadam, onion salad</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">VEGETABLE STRING HOPPER BIRIYANI WITH COCONUT GRAVY 🌱</span>
+                            <span class="item-price">LKR 1,600</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>String hoppers, mixed vegetables, onion sambol, coconut vegetable gravy</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">VEGETABLE FRIED RICE 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Rice, mixed vegetables, soy sauce, sesame oil</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">VEGETABLE FRIED NOODLES 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Noodles, mixed vegetables, soy sauce, sesame oil</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Side Dishes</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">GARLIC MASH 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Mashed potatoes, garlic, butter, cream</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">ROASTED NEW POTATOES 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>New potatoes, olive oil, herbs, salt</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">FRIES 🌱</span>
+                            <span class="item-price">LKR 1,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Potato fries, salt</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">SAUTÉED MUSHROOMS 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Mixed mushrooms, garlic, butter, herbs</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">BUTTERED VEGETABLES WITH ASPARAGUS 🌱</span>
+                            <span class="item-price">LKR 1,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Asparagus, mixed seasonal vegetables, butter</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">SAUTÉED SPINACH, GARLIC, GREEN BEAN, ONIONS 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Spinach, green beans, garlic, onions, olive oil</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sweet Dishes -->
+        <section id="sweets" class="card">
+            <h2 class="section-title">SWEET DISHES</h2>
+            <p><em>Served 24 hours</em></p>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">CRÈME CARAMEL 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Custard cream, caramelized sugar topping, vanilla</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian nuts">WATALAPPAM 🌱 🥜</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Jaggery, coconut milk, mixed nuts, cardamom, nutmeg</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">ETON MESS 🌱</span>
+                            <span class="item-price">LKR 1,850</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Strawberry, meringue, whipped cream</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">STICKY TOFFEE PUDDING 🌱</span>
+                            <span class="item-price">LKR 1,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Date and toffee pudding, vanilla ice cream, caramel sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">VANILLA CRÈME BRÛLÉE 🌱</span>
+                            <span class="item-price">LKR 1,150</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Vanilla custard, burnt sugar topping</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">CHOCOLATE NEMESIS 🌱</span>
+                            <span class="item-price">LKR 1,350</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Chocolate fudge cake, rich fudge sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">TIRAMISU 🌱</span>
+                            <span class="item-price">LKR 1,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Layered sponge, mascarpone cheese, coffee syrup, cocoa powder</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">STRAWBERRY BAKED CHEESECAKE 🌱</span>
+                            <span class="item-price">LKR 1,750</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Cream cheese, strawberries, graham cracker base</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">SELECTION OF ICE CREAMS 🌱</span>
+                            <span class="item-price">LKR 950</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong>Flavors:</strong> Strawberry, vanilla, chocolate</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">FRESH FRUIT SALAD OR FRESH FRUIT PLATTER 🌱</span>
+                            <span class="item-price">LKR 1,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>5 types of seasonal fruits</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kids Menu -->
+        <section id="kids" class="card">
+            <h2 class="section-title">KIDS MENU</h2>
+            <p><em>Served 11am - 11pm</em></p>
+
+            <h3 class="subsection-title">Breakfast Dishes</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">MINI PANCAKES 🌱</span>
+                            <span class="item-price">LKR 750</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Mini pancakes, honey, nutella</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">EGGY BREAKFAST</span>
+                            <span class="item-price">LKR 1,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Scrambled eggs, toast, baked beans</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">FRENCH TOAST</span>
+                            <span class="item-price">LKR 1,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>French toast, bacon OR sausage, hash brown</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">SPINACH AND CHEESE OMELETTE 🌱</span>
+                            <span class="item-price">LKR 900</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Eggs, spinach, cheddar cheese</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">STRAWBERRY PANCAKES 🌱</span>
+                            <span class="item-price">LKR 850</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Pancakes, fresh strawberries, whipped cream, honey</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">BANANA WAFFLES 🌱</span>
+                            <span class="item-price">LKR 1,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Waffles, sliced banana, honey, whipped cream</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Soups</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">FRESH TOMATO SOUP 🌱</span>
+                            <span class="item-price">LKR 800</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Fresh tomatoes, cream, herbs, croutons</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Main Dishes</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">MAC 'N' CHEESE 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Macaroni pasta, white sauce, cheese</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">SPAGHETTI WITH CHICKEN MEATBALLS</span>
+                            <span class="item-price">LKR 1,350</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Spaghetti, chicken meatballs, tomato sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">PIZZA MARGHERITA 🌱</span>
+                            <span class="item-price">LKR 1,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Tomato sauce, mozzarella cheese, fresh basil</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">HOT DOG</span>
+                            <span class="item-price">LKR 1,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Chicken sausage, hot dog bun, fries, tomato sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">FISH 'N' CHIPS</span>
+                            <span class="item-price">LKR 1,800</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Battered fish, fries, tartar sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">SPRING CHICKEN QUESADILLAS</span>
+                            <span class="item-price">LKR 1,700</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Chicken, tortilla, avocado, tomato, cream cheese</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">CHICKEN NUGGETS</span>
+                            <span class="item-price">LKR 1,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Chicken nuggets, tomato sauce, fries</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">FISH FINGERS</span>
+                            <span class="item-price">LKR 1,650</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Crumbed fish fingers, fries, tartar sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">POPCORN SHRIMP</span>
+                            <span class="item-price">LKR 950</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Crumb fried shrimp, fries</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">BURGER</span>
+                            <span class="item-price">LKR 1,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Beef OR chicken patty, bun, fries</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">SAUSAGE WITH MASH OR FRIES</span>
+                            <span class="item-price">LKR 1,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Chicken sausage, mashed potato OR fries</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">NOODLES WITH CHICKEN SAUSAGE</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Noodles, vegetables, chicken sausage</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">BAKED POTATO AND BROCCOLI 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Oven baked potato, broccoli, white sauce, cheese</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Kids Side Dishes</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">FRIES 🌱</span>
+                            <span class="item-price">LKR 1,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Potato fries, salt</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">MASHED POTATO 🌱</span>
+                            <span class="item-price">LKR 900</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Mashed potatoes, butter, milk</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">PEAS AND CARROTS 🌱</span>
+                            <span class="item-price">LKR 900</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Green peas, carrots, butter</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">CHEESY WEDGES 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Potato wedges, cheese, herbs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Kids Sweet Dishes</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">BANANA SPLIT 🌱</span>
+                            <span class="item-price">LKR 900</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Banana, vanilla ice cream, chocolate sauce, berry compote</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">FRUIT FLAVOURED JELLY 🌱</span>
+                            <span class="item-price">LKR 850</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Fruit jelly, custard OR ice cream</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">SELECTION OF ICE CREAMS 🌱</span>
+                            <span class="item-price">LKR 1,000</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong>Flavors:</strong> Vanilla, chocolate, strawberry</p>
+                            <p><strong>Toppings:</strong> Sugar coated chocolates, chocolate chips, nuts, sprinkles, jujubes, wafers, chocolate vermicelli, marshmallows, macaroons, honey coated cashew nuts, strawberry sauce, chocolate sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">CHOCOLATE MOUSSE 🌱</span>
+                            <span class="item-price">LKR 1,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Chocolate mousse, whipped cream</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">FRUIT SALAD WITH ICE CREAM 🌱</span>
+                            <span class="item-price">LKR 1,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Mixed fresh fruit, vanilla ice cream</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Kids Beverages</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">MILKSHAKE 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong>Flavors:</strong> Chocolate, banana, vanilla, strawberry</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">MILK 🌱</span>
+                            <span class="item-price">LKR 900</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong>Options:</strong> Warm or cold</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">COKE FLOAT 🌱</span>
+                            <span class="item-price">LKR 900</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Coke, vanilla ice cream</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">PINK ANGEL 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Portello, vanilla ice cream</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">FLAVOURED SODA 🌱</span>
+                            <span class="item-price">LKR 950</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong>Flavors:</strong> Kiwi, raspberry, pineapple, orange, apple, blackcurrant</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">FRUIT SMOOTHIE 🌱</span>
+                            <span class="item-price">LKR 1,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong>Flavors:</strong> Banana, strawberry, papaya, pineapple</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">CHOCOLATE MILK 🌱</span>
+                            <span class="item-price">LKR 1,000</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Chocolate syrup, milk</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Late Night Supper -->
+        <section id="late-night" class="card">
+            <h2 class="section-title">LATE NIGHT SUPPER</h2>
+            <p><em>Served 11:00pm - 6:00am</em></p>
+
+            <h3 class="subsection-title">Appetizers & Salads</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">NIÇOISE SALAD WITH TUNA</span>
+                            <span class="item-price">LKR 1,400</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Green beans, potato, olives, tomatoes, boiled egg, tuna, mixed greens</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">FATTOUSH SALAD WITH CHICKEN AND CREAMY HUMMUS</span>
+                            <span class="item-price">LKR 2,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Crispy Arabic bread, fried chickpea, grilled chicken, creamy hummus, mixed vegetables</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">GREEK SALAD 🌱</span>
+                            <span class="item-price">LKR 1,650</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Feta cheese, tomato, cucumber, red onion, lettuce, bell pepper, olives, lemon oregano olive oil dressing</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Soups</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">CREAM OF CHICKEN VELOUTÉ</span>
+                            <span class="item-price">LKR 1,700</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Pulled chicken, cream, herb croutons, chives, fried onions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">SOUP OF THE DAY</span>
+                            <span class="item-price">LKR 1,450</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Varies daily</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Burgers & Sandwiches</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">CRUMB-FRIED VEGETABLE BURGER 🌱</span>
+                            <span class="item-price">LKR 1,500</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Vegetable patty, brioche bun, sautéed onion, tomato, cucumber, lettuce, fries</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">CLASSIC BEEF OR CHICKEN BURGER</span>
+                            <span class="item-price">LKR 2,800</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Beef/chicken patty, brioche bun, cheddar cheese, vegetables, fries</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">CLUB SANDWICH</span>
+                            <span class="item-price">LKR 3,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Shredded chicken, emmental cheese, crispy bacon, fried egg, tomato, lettuce, fries</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Main Dishes</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">SLOW ROASTED CRISPY SPRING CHICKEN</span>
+                            <span class="item-price">LKR 3,000</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Spring chicken, cheesy mashed potato/fries, buttered vegetables, pepper sauce</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">FISH 'N' CHIPS</span>
+                            <span class="item-price">LKR 3,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Battered fish, fries, tartare sauce</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Asian & Sri Lankan Dishes</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">VEGETABLE BIRIYANI 🌱</span>
+                            <span class="item-price">LKR 1,700</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Basmati rice, mixed vegetables, spices, raita, pickles, papadam</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">CHICKEN BIRIYANI</span>
+                            <span class="item-price">LKR 2,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Basmati rice, chicken, spices, raita, pickles, papadam, boiled fried egg</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">MUTTON BIRIYANI</span>
+                            <span class="item-price">LKR 4,000</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Basmati rice, mutton, spices, raita, pickles, papadam, boiled fried egg</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name">NASI GORENG</span>
+                            <span class="item-price">LKR 2,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Indonesian fried rice, chicken satay, prawn crackers, fried egg</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Street Food</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name spicy">DELICIOUS KOTTU 🌶️</span>
+                            <span class="item-price">From LKR 1,200</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong class="vegetarian">Vegetable 🌱:</strong> LKR 1,200</p>
+                            <p><strong class="vegetarian">Vegetable and Cheese (Egg) 🌱:</strong> LKR 1,550</p>
+                            <p><strong>Chicken:</strong> LKR 1,950</p>
+                            <p><strong>Fish/Beef:</strong> LKR 2,200</p>
+                            <p><strong>Mutton:</strong> LKR 3,200</p>
+                            <p>Chopped roti, vegetables, protein, spices, curry sauce</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Sweet Dishes</h3>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">CRÈME CARAMEL 🌱</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Custard cream, caramelized sugar topping</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian nuts">WATALAPPAM 🌱 🥜</span>
+                            <span class="item-price">LKR 1,100</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Jaggery, coconut milk, nuts, spices</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">TIRAMISU 🌱</span>
+                            <span class="item-price">LKR 1,300</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p>Layered sponge, mascarpone cheese, coffee syrup</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="menu-item">
+                        <div class="item-title">
+                            <span class="item-name vegetarian">SELECTION OF ICE CREAMS 🌱</span>
+                            <span class="item-price">LKR 950</span>
+                        </div>
+                        <div class="item-ingredients">
+                            <p><strong>Flavors:</strong> Strawberry, vanilla, chocolate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+			<div style="text-align: center; margin: 3rem 0;">
+				<a href="cinnamon_grand_landing.html" class="nav-button">⬅ Back to Main Menu</a>
+				<button onclick="scrollToTop()" class="nav-button">⬆ Back to Top</button>
+			</div>
+        </section>
+    </main>
+
+    <script>
+        // Simple script for navigation highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.nav-btn');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    // Remove active class from all buttons
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Scroll to section
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Highlight nav button based on scroll position
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section[id]');
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop - 100) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                navButtons.forEach(button => {
+                    button.classList.remove('active');
+                    if (button.getAttribute('href') === `#${currentSection}`) {
+                        button.classList.add('active');
+                    }
+                });
+            });
+        });
+		
+	
+		function scrollToTop() {
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth'
+			});
+		}
+    </script>
+</body>
+</html>
