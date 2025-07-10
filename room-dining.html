@@ -65,13 +65,22 @@
             top: 0;
             z-index: 100;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        nav::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
         }
 
         .nav-container {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
             gap: 10px;
+            padding: 0 20px;
+            min-width: max-content;
         }
 
         .nav-btn {
@@ -83,6 +92,8 @@
             text-decoration: none;
             font-weight: bold;
             transition: var(--transition);
+            flex-shrink: 0;
+            white-space: nowrap;
         }
 
         .nav-btn:hover, .nav-btn.active {
@@ -221,28 +232,28 @@
         .spicy {
             color: #e53e3e;
         }
-		
-		.nav-button {
-			display: inline-block;
-			margin: 0 10px;
-			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-			color: white;
-			padding: 12px 30px;
-			font-size: 1em;
-			font-family: Georgia, serif;
-			border-radius: 50px;
-			text-decoration: none;
-			box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
-			border: none;
-			cursor: pointer;
-			transition: all 0.3s ease;
-		}
+        
+        .nav-button {
+            display: inline-block;
+            margin: 0 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            font-size: 1em;
+            font-family: Georgia, serif;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-		.nav-button:hover {
-			transform: translateY(-2px);
-			box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-			background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-		}
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
 
         /* Notice */
         .notice {
@@ -264,6 +275,7 @@
         @media (max-width: 768px) {
             .menu-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
             
             .section-title {
@@ -280,6 +292,76 @@
             
             .item-name {
                 font-size: 1.1em;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .item-price {
+                min-width: 80px;
+                padding: 5px 10px;
+                font-size: 0.9em;
+            }
+            
+            .nav-btn {
+                padding: 6px 15px;
+                font-size: 0.9em;
+            }
+            
+            .nav-button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+                margin: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            header p {
+                font-size: 1em;
+            }
+            
+            .section-title {
+                font-size: 1.3em;
+            }
+            
+            .subsection-title {
+                font-size: 1.1em;
+            }
+            
+            .card {
+                padding: 15px;
+            }
+            
+            .item-name {
+                font-size: 1em;
+            }
+            
+            .item-price {
+                min-width: 70px;
+                font-size: 0.8em;
+            }
+            
+            .item-ingredients {
+                font-size: 0.85em;
+            }
+            
+            .nav-btn {
+                padding: 5px 12px;
+                font-size: 0.8em;
+            }
+            
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 0.8em;
+            }
+            
+            .menu-grid {
+                gap: 15px;
             }
         }
 
