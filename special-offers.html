@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinnamon Grand - Premium Dining Experience</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            --accent-gradient: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --card-gradient: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 8px 15px rgba(0, 0, 0, 0.2);
+            --shadow-heavy: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--background-gradient);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            position: relative;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: var(--primary-gradient);
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) { width: 80px; height: 80px; top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { width: 60px; height: 60px; top: 50%; right: 15%; animation-delay: 2s; }
+        .floating-element:nth-child(3) { width: 100px; height: 100px; bottom: 20%; left: 20%; animation-delay: 4s; }
+        .floating-element:nth-child(4) { width: 40px; height: 40px; top: 30%; right: 30%; animation-delay: 1s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-family: Georgia, serif;
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-description {
+            font-size: 1.1em;
+            opacity: 0.8;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin: -30px auto 40px;
+            padding: 10px;
+            box-shadow: var(--shadow-medium);
+            position: relative;
+            z-index: 10;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            background: none;
+            border: none;
+            padding: 15px 25px;
+            margin: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-tab:hover::before,
+        .nav-tab.active::before {
+            left: 0;
+        }
+
+        .nav-tab:hover,
+        .nav-tab.active {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-family: Georgia, serif;
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+
+        .search-filter {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            padding: 12px 20px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 25px;
+            font-size: 1em;
+            width: 300px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            background: var(--card-gradient);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .filter-btn:hover::before {
+            left: 0;
+        }
+
+        .filter-btn:hover {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: var(--card-gradient);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .card-price {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card-meta span {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .special-offer {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .special-offer::after {
+            content: '⭐ SPECIAL OFFER';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.7em;
+            font-weight: 700;
+        }
+
+        .bank-offer {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+        }
+
+        .bank-offer .card-title,
+        .bank-offer .card-description {
+            color: white;
+        }
+
+        .bank-offer .card-meta span {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9em;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .expandable-content.expanded {
+            max-height: 500px;
+        }
+
+        .expand-btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .footer {
+            background: var(--primary-gradient);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-family: Georgia, serif;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5em;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2em;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .nav-tabs {
+                margin: -20px auto 30px;
+            }
+
+            .nav-tab {
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+
+            .search-filter {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .search-input {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2em;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .card-price {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Cinnamon Grand Colombo</h1>
+            <p class="hero-subtitle">Premium Dining & Exclusive Promotions</p>
+            <p class="hero-description">Experience culinary excellence with our curated selection of dining venues, special offers, and exclusive bank partnerships for July 2025</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="ongoing">Ongoing Promotions</button>
+            <button class="nav-tab" data-tab="bank">Bank Offers</button>
+            <button class="nav-tab" data-tab="strategic">Strategic Deals</button>
+            <button class="nav-tab" data-tab="special">Special Events</button>
+        </div>
+
+        <div class="search-filter">
+            <input type="text" class="search-input" placeholder="Search promotions, venues, or offers..." id="searchInput">
+            <button class="filter-btn" onclick="filterByCategory('dining')">Dining</button>
+            <button class="filter-btn" onclick="filterByCategory('beverages')">Beverages</button>
+            <button class="filter-btn" onclick="filterByCategory('special')">Special Offers</button>
+            <button class="filter-btn" onclick="clearFilters()">Clear All</button>
+        </div>
+
+        <!-- Ongoing Promotions Tab -->
+        <div id="ongoing" class="tab-content active">
+            <h2 class="section-title">Ongoing Promotions - July 2025</h2>
+            <div class="cards-grid" id="ongoingCards">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Plates Restaurant - Buffet Experience</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>All Meals</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Complete buffet experience with breakfast, lunch, and dinner options. Cultural show included with dinner buffet.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Breakfast Buffet:</strong> LKR 5,500 net PP (6:30 AM - 10:30 AM)</p>
+                        <p><strong>Lunch Buffet:</strong> LKR 6,500 net PP (12:00 PM - 3:00 PM)</p>
+                        <p><strong>Dinner Buffet:</strong> LKR 7,500 net PP (7:00 PM - 11:00 PM)</p>
+                        <p><strong>Liquid Dinner:</strong> LKR 10,500 net PP</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card special-offer">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Nuga Gama - Authentic Sri Lankan</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>7:00 PM - 10:30 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Experience authentic Sri Lankan cuisine in a traditional village setting with special themed nights.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Regular Dinner:</strong> LKR 6,200 net PP</p>
+                        <p><strong>Hopper Night:</strong> LKR 3,900 net PP</p>
+                        <p><strong>Pork & Pol Roti:</strong> LKR 3,900 net PP</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Tea Lounge - High Tea Experience</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>3:00 PM - 6:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Elegant high tea experience with premium selections and traditional accompaniments.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>High Tea Platter for 2:</strong> LKR 7,500 net (Non-Veg) / LKR 6,500 net (Veg)</p>
+                        <p>Perfect for afternoon gatherings with friends and family</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Breeze Bar - Happy Hour</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>6:00 PM - 8:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Premium poolside bar experience with discounted beverages during happy hour.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Happy Hour Special:</strong> 50% off on selected beverages</p>
+                        <p>Includes pouring brands of local & imported spirits</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Lagoon - Seafood Specialties</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>12:00 PM - 3:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Fresh seafood restaurant with all-you-can-eat options and signature sizzling platters.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>All You Can Eat Seafood Set Menu:</strong> LKR 6,500 net PP</p>
+						<p><em>Lobster & Salmon to be purchased separately</em></p>
+                        <p><strong>Sizzling Platter:</strong> LKR 9,000 net per platter</p>
+                        <p><em>Lobster & Salmon to be purchased separately</em></p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">London Grill - Fine Dining</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>7:00 PM - 11:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Premium steakhouse experience with exquisite new à la carte menu featuring the finest cuts.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>New À La Carte Menu:</strong> Premium selections available</p>
+                        <p>Featuring the finest steaks and gourmet preparations</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card special-offer">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Plates LuxDay Retreat</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>9:00 AM - 4:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="card-price">LKR 9,000 PP</div>
+                    </div>
+                    <div class="card-description">
+                        Complete day retreat package with lunch buffet, swimming pool access, and evening refreshments.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Includes:</strong></p>
+                        <p>• Welcome Drink @ Lobby</p>
+                        <p>• Swimming Pool & changing room access</p>
+						<p>• Lunch Buffet @ Plates</p>
+                        <p>• Evening Tea or Coffee with snacks @ Nuga Gama</p>
+                        <p><em>No additional discounts applicable</em></p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Sunday Specials</h3>
+                            <div class="card-meta">
+                                <span>Every Sunday</span>
+                                <span>12:00 PM - 3:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Special Sunday experiences at multiple venues with unique offerings.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Plates Sunday Brunch:</strong> LKR 8,500 net PP</p>
+                        <p><strong>Sunday Liquid Brunch:</strong> LKR 12,500 net PP</p>
+                        <p><strong>Cheers British Carvery:</strong> LKR 6,900 net PP (includes pint of beer)</p>
+                        <p><strong>Liquid Carvery:</strong> LKR 10,900 net PP (unlimited beverages)</p>
+						<p><strong>All You Can Eat Seafood Buffet:</strong> LKR 6,500 net PP</p>
+						<p><em>Lobster & Salmon to be purchased separately</em></p>
+						<p><strong>With Unlimited Local Spirits:</strong> LKR 8,900 net PP</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bank Offers Tab -->
+        <div id="bank" class="tab-content">
+            <h2 class="section-title">Exclusive Bank Partnerships</h2>
+            <div class="cards-grid" id="bankCards">
+                <div class="card bank-offer">
+                    <div class="discount-badge">Up to 30%</div>
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Commercial Bank</h3>
+                            <div class="card-meta">
+                                <span>1 Jul - 31 Jul</span>
+                                <span>All 7 days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Exclusive offers across multiple venues with varying discounts based on card type.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Nuga Gama Exclusive:</strong></p>
+                        <p>• Platinum Debit: 10% off (Max LKR 30,000)</p>
+                        <p>• All Credit: 15% off (Max LKR 30,000)</p>
+                        <p>• Premium Credit: 20% off (Max LKR 30,000)</p>
+                        <p>• HSBC Premier: 30% off (Max LKR 30,000)</p>
+                        <p><strong>Other Venues:</strong> Cheers, Lagoon, Plates (Max bill LKR 40,000)</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card bank-offer">
+                    <div class="discount-badge">20-30%</div>
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">HSBC Bank</h3>
+                            <div class="card-meta">
+                                <span>1 Jul - 31 Jul</span>
+                                <span>All 7 days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Comprehensive dining discounts across Breeze Bar, Lagoon, and Plates.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>All Credit Cards:</strong> 20% off (Max LKR 8,000)</p>
+                        <p><strong>Venues:</strong> Breeze Bar, Lagoon, Plates</p>
+                        <p><strong>Applicable:</strong> Lunch/Dinner</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card bank-offer">
+                    <div class="discount-badge">20%</div>
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">HNB Bank</h3>
+                            <div class="card-meta">
+                                <span>1 Jul - 31 Jul</span>
+                                <span>All 7 days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Wide venue coverage with discount applicable to all meal times including high tea.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>All Credit Cards:</strong> 20% off (Max LKR 10,000)</p>
+                        <p><strong>Venues:</strong> Breeze Bar, Cheers, Lagoon, Plates, Tea Lounge</p>
+                        <p><strong>Applicable:</strong> Breakfast, Lunch, Dinner, High Tea</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card bank-offer">
+                    <div class="discount-badge">30%</div>
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">NDB Bank</h3>
+                            <div class="card-meta">
+                                <span>1 Jul - 31 Jul</span>
+                                <span>All 7 days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Premium discounts for Signature & Infinite cardholders across multiple dining venues.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Signature & Infinite Credit:</strong> 30% off (Max LKR 10,000)</p>
+                        <p><strong>Venues:</strong> Breeze Bar, Cheers, Lagoon, Plates</p>
+                        <p><strong>Applicable:</strong> Breakfast, Lunch, Dinner</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card bank-offer">
+                    <div class="discount-badge">20-30%</div>
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">NTB Bank</h3>
+                            <div class="card-meta">
+                                <span>1 Jul - 31 Jul</span>
+                                <span>All 7 days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Exclusive London Grill offers with unique dining benefits and discounts.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>London Grill Special:</strong></p>
+                        <p>• Reserve Credit: Cardholder Dines Free</p>
+                        <p>• 50% savings for 2 pax</p>
+                        <p>• 33% savings for 3 pax</p>
+                        <p>• 25% savings for 4 pax</p>
+                        <p>• 20% savings for 5-10 pax</p>
+                        <p><strong>Cheers:</strong> All AMEX & Master 20% off (Max LKR 8,000)</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card bank-offer">
+                    <div class="discount-badge">30%</div>
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Pan Asia Bank</h3>
+                            <div class="card-meta">
+                                <span>1 Jul - 31 Jul</span>
+                                <span>All 7 days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Tiered discount system based on card type with coverage across popular venues.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>All Credit:</strong> 20% off</p>
+                        <p><strong>Privilege Credit / Biz Class:</strong> 30% off</p>
+                        <p><strong>Venues:</strong> Breeze Bar, Cheers, Lagoon, Plates</p>
+                        <p><strong>Max Discount:</strong> LKR 5,000</p>
+                        <p><strong>Applicable:</strong> Lunch, Dinner</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card bank-offer">
+                    <div class="discount-badge">30%</div>
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">People's Bank</h3>
+                            <div class="card-meta">
+                                <span>1 Jul - 31 Jul</span>
+                                <span>All 7 days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Generous discount with high maximum bill value across multiple dining venues.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>All Credit:</strong> 30% off</p>
+                        <p><strong>Venues:</strong> Breeze Bar, Cheers, Lagoon, Plates</p>
+                        <p><strong>Max Bill Value:</strong> LKR 50,000</p>
+                        <p><strong>Applicable:</strong> Lunch, Dinner</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card bank-offer">
+                    <div class="discount-badge">20-30%</div>
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Union Bank</h3>
+                            <div class="card-meta">
+                                <span>1 Jul - 31 Jul</span>
+                                <span>All 7 days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Tiered discount system with premium rates for signature and elite cardholders.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Signature & Elite Credit:</strong> 30% off</p>
+                        <p><strong>Platinum & Gold Credit:</strong> 20% off</p>
+                        <p><strong>Venues:</strong> Breeze Bar, Cheers, Lagoon, Plates</p>
+                        <p><strong>Max Discount:</strong> LKR 10,000</p>
+                        <p><strong>Applicable:</strong> Breakfast, Lunch, Dinner</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card bank-offer">
+                    <div class="discount-badge">15%</div>
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">BOC Bank</h3>
+                            <div class="card-meta">
+                                <span>15 Jul - 31 Jul</span>
+                                <span>All 7 days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Credit and debit card discounts across selected venues with Tea Lounge inclusion.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>All Credit & Debit:</strong> 15% off</p>
+                        <p><strong>Venues:</strong> Breeze Bar, Tea Lounge, Lagoon, Plates</p>
+                        <p><strong>Max Discount:</strong> LKR 6,000</p>
+                        <p><strong>Applicable:</strong> Lunch, Dinner</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategic Deals Tab -->
+        <div id="strategic" class="tab-content">
+            <h2 class="section-title">Strategic Monthly Rollouts</h2>
+            <div class="cards-grid" id="strategicCards">
+                <div class="card special-offer">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">World Chocolate Day Special</h3>
+                            <div class="card-meta">
+                                <span>6th - 8th July</span>
+                                <span>11:00 AM - 10:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="card-price">15% OFF</div>
+                    </div>
+                    <div class="card-description">
+                        Celebrate World Chocolate Day with specialty chocolate treats and beverages.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Venues:</strong> Coffee Stop & Tea Lounge</p>
+                        <p><strong>Offer:</strong> 15% off all chocolate-based food and beverages</p>
+                        <p><strong>Includes:</strong> Specialty chocolates, chocolate-infused beverages, waffles</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Coffee Stop Wrap Collection</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>3:00 PM - 7:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Fresh wrap selection with diverse flavors for afternoon cravings.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Mutton Wrap:</strong> LKR 1,500</p>
+                        <p><strong>Chilli Chicken Wrap:</strong> LKR 1,200</p>
+                        <p><strong>BBQ Pulled Beef Wrap:</strong> LKR 1,200</p>
+                        <p><strong>Falafel & Hummus Wrap:</strong> LKR 1,200</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Tea Lounge Savory Deal</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>3:00 PM - 7:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="card-price">LKR 3,000</div>
+                    </div>
+                    <div class="card-description">
+                        Perfect afternoon combination of savories, sandwich, and beverage.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Includes:</strong></p>
+                        <p>• Any 4 Savories (Excluding Mutton Rolls/Smoked Salmon)</p>
+                        <p>• 1 Chicken Sandwich</p>
+                        <p>• A Cup of Tea or Coffee</p>
+                        <p><strong>Price:</strong> LKR 3,000 net</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">London Grill 5-Course Set Menu</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>7:00 PM - 11:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="card-price">LKR 9,900</div>
+                    </div>
+                    <div class="card-description">
+                        Exclusive 5-course fine dining experience with wine pairing.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Exclusive 5-course set menu with glass of wine</strong></p>
+                        <p><strong>Price:</strong> LKR 9,900 net per person</p>
+                        <p>Curated dining experience at our premium steakhouse</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Nuga Gama 4th Person Free</h3>
+                            <div class="card-meta">
+                                <span>Mon - Thu</span>
+                                <span>7:00 PM - 10:30 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Weekday special offer for groups dining at our traditional Sri Lankan restaurant.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Offer:</strong> 4th Person Dines Free</p>
+                        <p><strong>Applicable:</strong> Monday to Thursday</p>
+                        <p><strong>Minimum:</strong> 4 persons required</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Cheers Sports Screening</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>According to schedule</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Live sports screening with special beverage deals for cricket and Formula 1.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Events:</strong> Sixers & Wickets, Formula 1 Grand Prix</p>
+                        <p><strong>Special:</strong> Beverage deals during live screening</p>
+                        <p><strong>Timing:</strong> According to match/race schedule</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Breeze Bar BBQ Feast</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>6:00 PM Onwards</span>
+                            </div>
+                        </div>
+                        <div class="card-price">LKR 14,900</div>
+                    </div>
+                    <div class="card-description">
+                        BBQ feast for four with unlimited local spirits in a poolside setting.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>BBQ Feast for 4 + Unlimited Local Spirits</strong></p>
+                        <p><strong>Price:</strong> LKR 14,900 net for 4 pax</p>
+                        <p>Perfect for groups looking for a complete dining and drinking experience</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">CG Flavors BBQ Platter</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>10:00 AM - 10:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="card-price">LKR 11,000</div>
+                    </div>
+                    <div class="card-description">
+                        Comprehensive BBQ platter with diverse meat selections and sides.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>BBQ Platter for 4 includes:</strong></p>
+                        <p>• Pork Sausages & Pork Ribs</p>
+                        <p>• Chicken Drumsticks & Beef Fillet</p>
+                        <p>• Fried Eggs & French Fries</p>
+                        <p><strong>Price:</strong> LKR 11,000 net for 4 pax</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Special Events Tab -->
+        <div id="special" class="tab-content">
+            <h2 class="section-title">Special Events & Celebrations</h2>
+            <div class="cards-grid" id="specialCards">
+                <div class="card special-offer">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Birthday Celebrations</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>All Venues</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Special birthday offers across dining venues and cake shop with complimentary treats.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Birthday Diner Free:</strong> Dine free on your birthday (Min 4 pax, includes cake)</p>
+                        <p><strong>Cake Discounts:</strong></p>
+                        <p>• 25% off all birthday cakes</p>
+                        <p>• 10% off 1kg cakes</p>
+                        <p>• 15% off 2kg cakes</p>
+                        <p>• 20% off 3kg+ cakes</p>
+                        <p><em>NIC required as proof of birthday</em></p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Party @ Plates</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>Group Bookings</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Tiered group discounts with complimentary cake for celebrations and gatherings.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Group Discounts:</strong></p>
+                        <p>• 10 pax: 10% discount + Complimentary cake</p>
+                        <p>• 15 pax: 15% discount + Complimentary cake</p>
+                        <p>• 20 pax: 20% discount + Complimentary cake</p>
+                        <p>Perfect for celebrations and corporate events</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Plates Early Bird Special</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>Two Seatings</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Special early seating arrangements with preferred timing and service.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>First Seating:</strong> 6:30 PM - 8:30 PM</p>
+                        <p><strong>Second Seating:</strong> 9:00 PM - 11:00 PM</p>
+                        <p>Enjoy priority seating with personalized service</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Corporate Packages</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>Multiple Venues</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Customized corporate dining solutions with team building activities and business lunch options.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Business Lunch:</strong> LKR 6,000 PP (Up to 50 pax)</p>
+                        <p><strong>Dine & Bond Package:</strong> LKR 7,000 PP</p>
+                        <p>• Team building activities</p>
+                        <p>• Cooking demonstrations</p>
+                        <p>• Games and activities</p>
+                        <p>• Dinner buffet included</p>
+                        <p><strong>CG Flavors Lunch Packages:</strong></p>
+                        <p>• Indian Menu: LKR 2,700 net</p>
+                        <p>• Chinese Menu: LKR 2,400 net</p>
+                        <p>• Indonesian Menu: LKR 2,500 net</p>
+                        <p>• Far-Eastern Menu: LKR 3,300 net</p>
+                        <p>• Sri Lankan Non-Veg: LKR 2,400 net</p>
+                        <p>• Sri Lankan Vegetarian: LKR 2,000 net</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Cheers Weekly Guide</h3>
+                            <div class="card-meta">
+                                <span>Daily Themes</span>
+                                <span>Based on hours</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Daily themed beverage specials celebrating different spirits and occasions.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Weekly Themes:</strong></p>
+                        <p>• Monday: A Gin Celebration</p>
+                        <p>• Tuesday: Rum Rush</p>
+                        <p>• Wednesday: Raise a Glass to Whisky</p>
+                        <p>• Thursday: Sip the Tequila</p>
+                        <p>• Friday: Vodka Vibes</p>
+                        <p>• Saturday: Beer Lovers' Tasting Night</p>
+                        <p>• Sunday: Cheers to the Ladies (Complimentary cocktail)</p>
+                        <p><strong>Special:</strong> 20% on imported bottles, Wednesday 7-8 PM</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card special-offer">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Weekend Sawan Offer</h3>
+                            <div class="card-meta">
+                                <span>Fri - Sun</span>
+                                <span>CG Flavors</span>
+                            </div>
+                        </div>
+                        <div class="card-price">20% OFF</div>
+                    </div>
+                    <div class="card-description">
+                        Weekend special discount on traditional Sawan menu items.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Weekend Special:</strong> 20% off on all Sawan orders</p>
+                        <p><strong>Includes:</strong> Both Veg & Non-Veg options</p>
+                        <p><strong>Venue:</strong> CG Flavors</p>
+                        <p><strong>Time:</strong> 10:00 AM - 10:00 PM</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Breeze Bar & Cheers Beverage Combos</h3>
+                            <div class="card-meta">
+                                <span>Daily</span>
+                                <span>Operational Hours</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        Special beverage combo deals and bundle packages for local and imported spirits.
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Raise Your Spirit with Kilo Bites</strong></p>
+                        <p>• Beverage Combo Deals</p>
+                        <p>• Bundle Package deals</p>
+                        <p>• Local & Imported alcoholic beverages</p>
+                        <p>Available at both Breeze Bar and Cheers</p>
+                    </div>
+                    <button class="expand-btn" onclick="toggleExpand(this)">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <h3 class="footer-title">Cinnamon Grand Colombo</h3>
+            <p class="footer-text">
+                Experience the finest in luxury dining with our exclusive promotions and world-class service. 
+                Visit us for an unforgettable culinary journey in the heart of Colombo.
+            </p>
+            <p class="footer-text" style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">
+                All promotions valid for July 2025 | All Rights Reserved | CG Cinnamon Connect
+            </p>
+        </div>
+    </div>
+
+    <script>
+    // Tab functionality
+    const tabs = document.querySelectorAll('.nav-tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetTab = tab.dataset.tab;
+
+            tabs.forEach(t => t.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            tab.classList.add('active');
+            document.getElementById(targetTab).classList.add('active');
+        });
+    });
+
+    // Expand/collapse functionality
+    function toggleExpand(button) {
+        const content = button.previousElementSibling;
+        const isExpanded = content.classList.contains('expanded');
+
+        if (isExpanded) {
+            content.classList.remove('expanded');
+            button.textContent = 'View Details';
+        } else {
+            content.classList.add('expanded');
+            button.textContent = 'Hide Details';
+        }
+    }
+
+    // Search and filter functionality
+    const searchInput = document.getElementById('searchInput');
+    let currentFilter = '';
+
+    searchInput.addEventListener('input', performSearch);
+
+    function performSearch() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        const allCards = document.querySelectorAll('.card');
+        let anyMatches = false;
+        const matchingTabIds = new Set();
+
+        allCards.forEach(card => {
+            const title = card.querySelector('.card-title').textContent.toLowerCase();
+            const description = card.querySelector('.card-description').textContent.toLowerCase();
+            const meta = card.querySelector('.card-meta')?.textContent.toLowerCase() || '';
+
+            const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm) || meta.includes(searchTerm);
+            const matchesFilter = currentFilter === '' || card.classList.contains(currentFilter);
+
+            if (matchesSearch && matchesFilter) {
+                card.style.display = 'block';
+                card.style.animation = 'fadeIn 0.3s ease-in-out';
+                anyMatches = true;
+
+                const tabId = card.closest('.tab-content').id;
+                matchingTabIds.add(tabId);
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        if (matchingTabIds.size > 0) {
+            highlightTab(Array.from(matchingTabIds));
+        } else {
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.style.boxShadow = 'none';
+            });
+        }
+
+        if (!anyMatches && searchTerm.length > 0) {
+            showNoResultsMessage();
+        } else {
+            hideNoResultsMessage();
+        }
+    }
+
+    function filterByCategory(category) {
+        currentFilter = category;
+        const allCards = document.querySelectorAll('.card');
+        const matchingTabIds = new Set();
+
+        allCards.forEach(card => {
+            const title = card.querySelector('.card-title').textContent.toLowerCase();
+            const description = card.querySelector('.card-description').textContent.toLowerCase();
+
+            let matches = false;
+
+            switch (category) {
+                case 'dining':
+                    matches = title.includes('buffet') || title.includes('restaurant') || title.includes('grill') ||
+                              title.includes('plates') || title.includes('lagoon') || title.includes('nuga gama') ||
+                              title.includes('london grill') || title.includes('tea lounge') || title.includes('coffee stop');
+                    break;
+                case 'beverages':
+                    matches = title.includes('bar') || title.includes('cheers') || title.includes('tea') ||
+                              title.includes('happy hour') || description.includes('beverages') ||
+                              title.includes('breeze bar') || description.includes('drinks') ||
+                              description.includes('cocktails') || description.includes('spirits');
+                    break;
+                case 'special':
+                    matches = card.classList.contains('special-offer') ||
+                              /\bspecial\b/.test(title) || /\bbirthday\b/.test(title) ||
+                              /\bparty\b/.test(title) || /\boffer\b/.test(title) ||
+                              /\bdiscount\b/.test(description) || /\bpromotion\b/.test(description);
+                    break;
+            }
+
+            if (matches) {
+                card.style.display = 'block';
+                card.style.animation = 'fadeIn 0.3s ease-in-out';
+                const tabId = card.closest('.tab-content').id;
+                matchingTabIds.add(tabId);
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        if (matchingTabIds.size > 0) {
+            highlightTab(Array.from(matchingTabIds));
+        } else {
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.style.boxShadow = 'none';
+            });
+        }
+
+        // Also apply search if already typed
+        if (searchInput.value.trim().length > 0) {
+            performSearch();
+        } else {
+            hideNoResultsMessage();
+        }
+    }
+
+    function clearFilters() {
+        currentFilter = '';
+        searchInput.value = '';
+        const allCards = document.querySelectorAll('.card');
+
+        allCards.forEach(card => {
+            card.style.display = 'block';
+            card.style.animation = 'fadeIn 0.3s ease-in-out';
+        });
+
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.style.boxShadow = 'none';
+        });
+
+        hideNoResultsMessage();
+    }
+
+    function highlightTab(tabIds) {
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.style.boxShadow = 'none';
+        });
+
+        tabIds.forEach(tabId => {
+            const tabButton = document.querySelector(`.nav-tab[data-tab="${tabId}"]`);
+            if (tabButton) {
+                tabButton.style.boxShadow = '0 0 10px 3px rgba(255, 215, 0, 0.7)';
+            }
+        });
+    }
+
+    function showNoResultsMessage() {
+        let noResults = document.getElementById('noResultsMessage');
+        if (!noResults) {
+            noResults = document.createElement('div');
+            noResults.id = 'noResultsMessage';
+            noResults.style.textAlign = 'center';
+            noResults.style.padding = '20px';
+            noResults.style.color = 'var(--text-secondary)';
+            noResults.style.fontStyle = 'italic';
+            noResults.textContent = 'No matching promotions found. Try a different search term.';
+
+            const container = document.querySelector('.container');
+            container.appendChild(noResults);
+        }
+    }
+
+    function hideNoResultsMessage() {
+        const noResults = document.getElementById('noResultsMessage');
+        if (noResults) {
+            noResults.remove();
+        }
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+</body>
+</html>
