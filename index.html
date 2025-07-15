@@ -337,9 +337,9 @@
         </div>
 
         <div class="hero-section">
-            <h1>Cinnamon Grand</h1>
-            <p class="subtitle">Dining Experience</p>
-            <p class="description">Choose your menu or explore both to discover our exquisite culinary offerings</p>
+            <h1>Cinnamon Connect</h1>
+            <p class="subtitle">Hospitara</p>
+            <p class="description">Welcome to Hospitara Your Insightful Gateway to Dining, Deals, and Delights</p>
         </div>
 
         <div class="menu-selection">
@@ -357,21 +357,30 @@
                 <button class="menu-button">View Menu</button>
             </div>
         </div>
+		
+		<div class="menu-card" onclick="selectMenu('special-offers')">
+			<div class="menu-icon">🏷️</div>
+			<h3>Special Offers & Events</h3>
+			<p>Stay updated with our latest promotions, exclusive culinary events, and seasonal dining experiences crafted just for you.</p>
+			<button class="menu-button">Explore Now</button>
+		</div>
 
     <script>
     function selectMenu(menuType) {
-        // Optional fade-out effect
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '0.7';
+    // Optional fade-out effect
+    document.body.style.transition = 'opacity 0.5s ease';
+    document.body.style.opacity = '0.7';
 
-        setTimeout(() => {
-            if (menuType === 'room-dining') {
-                window.location.href = "room-dining.html"; // <-- Link to your subpage
-            } else if (menuType === 'beverage-wine') {
-                window.location.href = "beverage-wine.html"; // <-- Link to your subpage
-            }
-        }, 300);
-    }
+    setTimeout(() => {
+        if (menuType === 'room-dining') {
+            window.location.href = "room-dining.html";
+        } else if (menuType === 'beverage-wine') {
+            window.location.href = "beverage-wine.html";
+        } else if (menuType === 'special-offers') {
+            window.location.href = "special-offers.html"; // <-- Add this page
+        }
+    }, 300);
+}
 </script>
 
 </body>
