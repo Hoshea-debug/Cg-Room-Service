@@ -2371,20 +2371,24 @@
 			});
 		}
 	    
-	  // Define service charge and tax rates
 	  const serviceChargeRate = 0.10;  // 10%
 	  const taxRate = 0.2217;          // 22.17%
 	
-	  // Select all elements with the class "item-price"
 	  const priceElements = document.querySelectorAll('.item-price');
 	
 	  priceElements.forEach(el => {
-	    const basePrice = parseFloat(el.textContent);
+	    // Extract number: remove "LKR" and commas, then parse
+	    const text = el.textContent.replace(/LKR\s?/i, '').replace(/,/g, '');
+	    const basePrice = parseFloat(text);
 	
 	    if (!isNaN(basePrice)) {
 	      const withService = basePrice + (basePrice * serviceChargeRate);
 	      const finalPrice = withService + (withService * taxRate);
-	      el.textContent = finalPrice.toFixed(2);  // Round to 2 decimal places
+	      // Format number with commas and currency
+	      el.textContent = "LKR " + finalPrice.toLocaleString(undefined, {
+	        minimumFractionDigits: 2,
+	        maximumFractionDigits: 2
+	      });
 	    }
 	  });
     </script>
