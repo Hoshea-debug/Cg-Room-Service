@@ -2461,6 +2461,25 @@
 				behavior: 'smooth'
 			});
 		}
+
+	  const serviceChargeRate = 0.10;  // 10%
+	  const taxRate = 0.2217;          // 22.17%
+	
+	  document.querySelectorAll('.price').forEach(el => {
+	    const cleanText = el.textContent.replace(/,/g, ''); // Remove commas
+	    const basePrice = parseFloat(cleanText);            // Convert to number
+	
+	    if (!isNaN(basePrice)) {
+	      const withService = basePrice * (1 + serviceChargeRate);
+	      const finalPrice = withService * (1 + taxRate);
+	
+	      // Format number with commas and 2 decimal places
+	      el.textContent = finalPrice.toLocaleString(undefined, {
+	        minimumFractionDigits: 2,
+	        maximumFractionDigits: 2
+	      });
+	    }
+	  });
 	</script>
 
 </body>
